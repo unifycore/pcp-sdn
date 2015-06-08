@@ -1,0 +1,35 @@
+
+~/share/read_command_output.sh 'ryu-manager'
+~/share/read_command_output.sh 'ofdatapath'
+~/share/read_command_output.sh 'ofprotocol'
+
+~/share/pcp_sdn_test_topology.sh
+
+# Examine OpenFlow switch flow entries
+sudo dpctl 'unix:/tmp/fw.socket' stats-flow | sed 's/, \({table=\)/,\n\n\1/g'
+
+# Verify basic packet forwarding
+sudo ip netns exec host1 ping 172.16.0.2
+
+# Monitor traffic on a host
+sudo ip netns exec 'host1' tcpdump -i 'host1_fw' -w ~/share/test_pcp_sdn_host1_fw.pcap
+sudo ip netns exec 'host2' tcpdump -i 'host2_fw' -w ~/share/test_pcp_sdn_host2_fw.pcap
+
+# Generate a PCP request
+# The short lifetime allows to check whether the NAT flow entries on the forwarder expired.
+sudo ip netns exec 'host1' pcp -i 172.16.0.100:5555 -l 30 -s 172.16.0.1
+
+# Test UDP communication
+sudo ip netns exec 'host2' iperf -s -u
+sudo ip netns exec 'host1' iperf -c 200.0.0.200 -u -n 1
+
+# Test TCP communication
+# For some reason, `iperf` does not fragment segments larger than MSS. This causes
+# `ofdatapath` to crash. As a workaround, set the payload length to 1.
+sudo ip netns exec 'host2' iperf -s
+sudo ip netns exec 'host1' iperf -c 200.0.0.200 -l 1 -n 1
+
+# Test TCP communication with nping
+sudo ip netns exec 'host2' nping --echo-server 'test' -v4
+sudo ip netns exec 'host1' nping --echo-client 'test' --tcp --source-port 5555 -v4 200.0.0.200
+

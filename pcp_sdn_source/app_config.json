@@ -1,0 +1,22 @@
+{
+  "pcp_server_listening_port": 5351, 
+  "pcp_client_multicast_port": 5350, 
+  "default_pcp_map_assigned_lifetime_seconds": 0, 
+  "default_pcp_peer_assigned_lifetime_seconds": 0, 
+  "default_nat_flow_entry_priority": 1, 
+  "default_mac_modifying_flow_entries_priority": 1, 
+  "default_arp_forwarding_priority": 2, 
+  "default_pcp_forwarding_priority": 3, 
+  "default_nat_pool_config": {
+    "internal_ip_low_end": "172.16.0.2", 
+    "internal_ip_high_end": "172.16.255.254", 
+    "internal_port_low_end": 1, 
+    "internal_port_high_end": 65535, 
+    "external_ip_low_end": "200.0.0.2", 
+    "external_ip_high_end": "200.0.255.254", 
+    "external_port_low_end": 49152, 
+    "external_port_high_end": 65535, 
+    "ip_allocation_type": 0, 
+    "port_allocation_type": 1
+  }
+}
