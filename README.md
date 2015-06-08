@@ -22,16 +22,16 @@ Requirements:
 * Ubuntu 14.04 or newer
 * [ryu SDN framework](https://github.com/osrg/ryu)
 * [ofsoftswitch13](https://github.com/unifycore/ofsoftswitch13)
-* [PCP client library](https://github.com/libpcp)
+* [PCP client library](https://github.com/libpcp/pcp)
 * optional: `nping` command as a part of the `nmap` package (to test address and port translation for TCP connections)
 
 To install ryu and ofsoftswitch13, you may utilize the [UnifyCore](https://github.com/unifycore/unifycore) project and run its install script `unifycore/support/install_core.sh`. Note, however, that in that case you'll need to install Ubuntu Server 14.04 (as per the requirements of UnifyCore).
 
 Alternatively, you may install ryu and ofsoftswitch13 without UnifyCore. In that case, follow the installation instructions for ryu and ofsoftswitch13.
 
-##Compiling the PCP client
+##Compiling PCP client
 
-To compile the PCP client, run the following commands:
+To compile the PCP client from the PCP client library, run the following commands:
     
     cd [path to PCP client library directory]
     ./autogen.sh
