@@ -1,4 +1,4 @@
-#pcp-sdn
+# pcp-sdn
 
 This project implements Port Control Protocol (PCP) server as a network application running on an SDN controller.
 
@@ -16,7 +16,7 @@ The PCP server implementation aims to be compliant with RFC 6887. However, the c
 The current implementation also does not define any PCP server address, i.e. PCP clients can use any IP address as the PCP server address when sending PCP requests.
 
 
-#Installation
+# Installation
 
 Requirements:
 * Ubuntu 14.04 or newer
@@ -29,7 +29,7 @@ To install ryu and ofsoftswitch13, you may utilize the [UnifyCore](https://githu
 
 Alternatively, you may install ryu and ofsoftswitch13 without UnifyCore. In that case, follow the installation instructions for ryu and ofsoftswitch13.
 
-##Compiling PCP client
+## Compiling PCP client
 
 To compile the PCP client from the PCP client library, run the following commands:
     
@@ -40,7 +40,7 @@ To compile the PCP client from the PCP client library, run the following command
     sudo make install
 
 
-#Usage
+# Usage
 
 The source contains a script for the following test topology:
     
@@ -82,14 +82,14 @@ For the `[port]` parameter, use the same port as the one specified when requesti
 
 To terminate the test topology (along with the controller, the network application and the forwarder), simply terminate the script by pressing ctrl+C.
 
-##Configuration
+## Configuration
 
 Several parameters of the network application can be configured in the `pcp_sdn_source/app_config.json` file, such as:
 * minimum assigned lifetime for MAP and PEER mappings. For example, setting `default_pcp_map_assigned_lifetime_seconds` to 3600 causes the PCP server to assign mapping lifetime of at least 3600 seconds for MAP mappings (despite the fact that the PCP client may have requested a lower value). This is set to 0 by default, i.e. no minimum lifetime is defined. Deleting mappings still works properly if the client sends a PCP request with suggested lifetime set to 0 and the configuration has non-zero values for minimum lifetime.
 * NAT pool, such as the range of internal IP addresses and ports to translate, and the range of external IP addresses and ports to use in translation.
 
 
-#Known Issues, Limitations
+# Known Issues, Limitations
 
 * `read_command_output.sh` must be executed for all commands (`ryu-manager`, `ofprotocol` and `ofdatapath`), otherwise the execution the commands will be blocked. This issue stems from the fact that `pcp_sdn_test_topology.sh` writes to named pipes - the command that writes to a named pipe is blocked until a program reads from it.
 * The current NAT implementation does not create implicit mappings. Mappings can only be created by sending PCP requests.
